@@ -8,8 +8,8 @@ def buy(pair: str):
 def sell(pair: str):
     pass
 
-def check_sell(pair: str, indicator: str):
-    if not indicators.functions.get(indicator)
+def update(pair: str, indicator: str):
+    if not indicators.functions.get(indicator):
         print(f'Cannot find function for {indicator}')
 
     result = indicators.functions[indicator](pair)
@@ -17,6 +17,3 @@ def check_sell(pair: str, indicator: str):
 
     if result == 'buy':
         buy(pair)
-
-def update():
-    pass
