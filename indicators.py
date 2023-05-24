@@ -25,11 +25,19 @@ def get_method_values(pair: str, method: str, exchange: str = 'binance'):
 '''
 RSI Indicator
 '''
-def rsi():
-    d = get_method_values('BTC/USDT', 'rsi')
+def rsi(pair: str):
+    d = get_method_values(pair, 'rsi')
 
     if d.get('value') > 70: #Overbought => should sell
         return 'sell'
     if d.get('value') < 30: #Oversold => should buy
         return 'buy'
     return 'hold' #Neither detected => should hold
+
+
+'''
+Associate names with values
+'''
+functions = {
+    'rsi': rsi(),
+}

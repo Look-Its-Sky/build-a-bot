@@ -1,2 +1,3 @@
-from indicators import *
-print(api_key)
+import settings
+
+while True:
