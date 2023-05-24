@@ -22,6 +22,7 @@ BTC/USDT
 def get_method_values(pair: str, method: str, exchange: str = 'binance'):
     return get("https://api.taapi.io/{method}?secret={api_key}&exchange={exchange}&symbol={pair}&interval={interval}")
 
+
 '''
 RSI Indicator
 '''
