@@ -1,3 +1,5 @@
 *.txt
+api.json
+orders.json
 venv/
 __pycache__/

@@ -1,9 +1,6 @@
 import requests
-
-with open('api.txt', 'r') as f:
-    api_key = f.readline()    
+     
 interval = "1h"
-
 
 '''
 Simple GET request
@@ -40,5 +37,5 @@ def rsi(pair: str):
 Associate names with values
 '''
 functions = {
-    'rsi': rsi(),
+    'rsi': rsi,
 }
