@@ -1,23 +1,26 @@
 import requests, json
-from bot import keys
+import settings
 
-def get_cmc_listings():
-    url = 'https://sandbox-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
+'''
+Get price of coin
+'''
+def get_price(pair: str):
+    id = settings.strats.get(pair).get('coingecko_id')
+    convert = pair.split('/')[1]
 
     parameters = {
-        'start': '1',
-        'limit': '5000',
-        'convert': 'USD'
+        'ids': id,
+        'vs_currencies': convert,
     }
-    
     headers = {
         'Accepts': 'application/json',
-        'X-CMC_PRO_API_KEY': keys['coinmarketcap']
     }
 
     try:
-        response = requests.get(url, params=parameters, headers=headers)
-        data = json.loads(response.text)
-        print(data)
+        response = requests.get('https://api.coingecko.com/api/v3/simple/price?', params=parameters, headers=headers)
+        return response.json()
+        
     except requests.exceptions.RequestException as e:
         print(e)
+
+print(get_price('ETH/USD'))
