@@ -1,5 +1,6 @@
 import requests
-     
+import bot
+
 interval = "1h"
 
 '''
@@ -17,14 +18,16 @@ Pair Example:
 BTC/USDT
 '''
 def get_method_values(pair: str, method: str, exchange: str = 'binance'):
-    return get("https://api.taapi.io/{method}?secret={api_key}&exchange={exchange}&symbol={pair}&interval={interval}")
+    interval = "5m"
+    return get(f"https://api.taapi.io/{method}?secret={bot.keys.get('taapi')}&exchange={exchange}&symbol={pair}/USDT&interval={interval}") #TODO: fix conversion
 
 
 '''
 RSI Indicator
 '''
 def rsi(pair: str):
-    d = get_method_values(pair, 'rsi')
+    d = get_method_values(pair=pair.split("/")[0], method='rsi')
+    print(d.get('value'))
 
     if d.get('value') > 70: #Overbought => should sell
         return 'sell'

@@ -18,7 +18,7 @@ alpaca_api = TradingClient(keys['alpaca_api'], keys['alpaca_secret'], paper=True
 
 
 '''
-Market Order Buy Side'
+Market Order Buy Side
 (Immediate Order)
 '''
 def buy_mo(pair: str):
@@ -85,7 +85,9 @@ def update(pair: str, indicator: str):
     print(f'According to {indicator} we should {result}!')
 
     if result == 'buy':
-        buy_mo(pair)
-
-
-buy_mo("BTC/USD")
+        buy_mo(pair) 
+    
+    if result == 'sell':
+        positions = alpaca_api.get_all_positions()
+        for i in positions:
+            print(i.market_value)
