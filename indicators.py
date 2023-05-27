@@ -59,6 +59,7 @@ def bbands2(pair: str):
         return 'hold' #API error
 
     price = market.get_price(pair)
+    print(price)
 
     if d.get('valueUpperBand') * (1 - boundary) >= price: #Overbought => should sell
         result = 'sell'
@@ -75,5 +76,5 @@ Associate names with values
 '''
 functions = {
     'rsi': rsi,
-    'bbands': bbands2
+    'bbands2': bbands2
 }

@@ -18,9 +18,7 @@ def get_price(pair: str):
 
     try:
         response = requests.get('https://api.coingecko.com/api/v3/simple/price?', params=parameters, headers=headers)
-        return response.json()
+        return response.json().get(id).get(convert)
         
     except requests.exceptions.RequestException as e:
         print(e)
-
-print(get_price('ETH/USD'))

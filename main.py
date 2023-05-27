@@ -9,15 +9,15 @@ if __name__ == "__main__":
                 time.sleep(5) #should at least be 4? seconds assuming all APIs are free tier
             
             #calc the play
-            longest = settings.indicators['buy']
+            longest = indicators.results['buy']
             result = ''
-            if settings.indicators['sell'] == settings.indicators['buy'] == settings.indicators['hold'] or settings.indicators['hold'] > settings.indicators['sell'] and settings.indicators['hold'] > settings.indicators['buy']:
+            if indicators.results['sell'] == indicators.results['buy'] == indicators.results['hold'] or indicators.results['hold'] > indicators.results['sell'] and indicators.results['hold'] > indicators.results['buy']:
                 result = 'hold'
 
-            if settings.indicators['sell'] > settings.indicators['buy'] and settings.indicators['sell'] > settings.indicators['hold']:
+            if indicators.results['sell'] > indicators.results['buy'] and indicators.results['sell'] > indicators.results['hold']:
                 result = 'sell'
 
-            if settings.indicators['buy'] > settings.indicators['sell'] and settings.indicators['sell'] > settings.indicators['hold']:
+            if indicators.results['buy'] > indicators.results['sell'] and indicators.results['sell'] > indicators.results['hold']:
                 result = 'buy'
 
             #play time
@@ -26,3 +26,10 @@ if __name__ == "__main__":
             
             if result == 'sell' and len(bot.alpaca_api.get_all_positions()) != 0:
                 bot.sell_mo(p)
+            
+            results = {
+                'buy': [],
+                'sell': [],
+                'hold': []
+            }
+            time.sleep(10)
