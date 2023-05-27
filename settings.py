@@ -1,7 +1,7 @@
 '''
 what indicators to use
 '''
-indicators = ['rsi']
+indicators = ['rsi', 'bbands2']
 
 
 '''
