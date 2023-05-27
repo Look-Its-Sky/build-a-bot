@@ -13,7 +13,11 @@ results = {
 Simple GET request
 '''
 def get(url: str):
-    response = requests.get(url) 
+    try:
+        response = requests.get(url) 
+    except requests.exceptions.ConnectionError:
+        return None
+
     if response.status_code!= 200:
         return None
     return response.json()
