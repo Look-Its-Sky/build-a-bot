@@ -81,4 +81,4 @@ def update(pair: str, indicator: str):
         print(f'Cannot find function for {indicator}')
 
     result = indicators.functions[indicator](pair)
-    print(f'According to {indicator} we should {result} on {pair}!')
+    print(f'{datetime.now().strftime("[%D @ %H:%M:%S]")}: According to {indicator} we should {result} on {pair}!')
