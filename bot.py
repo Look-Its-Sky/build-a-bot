@@ -82,7 +82,7 @@ def update(pair: str, indicator: str):
         print(f'Cannot find function for {indicator}')
 
     result = indicators.functions[indicator](pair)
-    print(f'According to {indicator} we should {result}!')
+    print(f'According to {indicator} we should place a {result} order on {pair}!')
 
     if result == 'buy':
         buy_mo(pair) 

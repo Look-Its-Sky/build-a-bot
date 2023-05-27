@@ -1,5 +1,5 @@
 import requests
-import bot
+import bot, market
 
 interval = "1h"
 
@@ -37,8 +37,26 @@ def rsi(pair: str):
 
 
 '''
+Bollinger Bands Indicator
+'''
+def bbands2(pair: str):
+    boundary = 0.02 #boundary is the safety number applied to lower and upper bounds
+
+    #do everything to reduce the amount of requests per second
+    d = get_method_values(pair=pair.split("/")[0], method='bbands2')
+    price = market.get_price(pair)
+
+    if d.get('valueUpperBand') * (1 - boundary) >= price:
+        return 'sell'
+    if d.get('valueLowerBand') * (1 + boundary) >= market.get_price(pair):
+        return 'buy'
+
+    return 'hold'
+
+'''
 Associate names with values
 '''
 functions = {
     'rsi': rsi,
+    'bbands': bbands2
 }
