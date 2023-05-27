@@ -3,7 +3,6 @@ from alpaca.trading.requests import *
 from alpaca.trading.enums import OrderSide, TimeInForce
 import indicators, json, settings
 
-orders = []
 
 '''
 Set all API keys
@@ -41,7 +40,7 @@ def buy_lo(pair: str, limit_price: float):
         side = OrderSide.BUY,
         time_in_force = TimeInForce.GTC,
         notional = 50,
-        stop_loss = settings.strats[pair],
+        stop_loss = settings.strats[pair]
     ))
 
 
@@ -55,7 +54,7 @@ def sell_mo(pair: str):
         side=OrderSide.SELL,
         time_in_force=TimeInForce.GTC,
         notional = 50,
-        stop_loss = settings.strats[pair]['stop_loss'],
+        stop_loss = settings.strats[pair]['stop_loss']
     ))
 
 

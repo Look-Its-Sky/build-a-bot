@@ -2,6 +2,12 @@ import requests
 import bot, market
 
 interval = "1h"
+results = {
+    'buy': [],
+    'sell': [],
+    'hold': []
+}
+
 
 '''
 Simple GET request
@@ -26,32 +32,43 @@ def get_method_values(pair: str, method: str, exchange: str = 'binance'):
 RSI Indicator
 '''
 def rsi(pair: str):
+    result = 'hold'
     d = get_method_values(pair=pair.split("/")[0], method='rsi')
-    print(d.get('value'))
+    if not d:
+        return 'hold' #API error
+    rsi = d.get('value')
 
-    if d.get('value') > 70: #Overbought => should sell
-        return 'sell'
-    if d.get('value') < 30: #Oversold => should buy
-        return 'buy'
-    return 'hold' #Neither detected => should hold
+    if rsi > 70: #Overbought => should sell
+        result = 'sell'
+    if rsi < 30: #Oversold => should buy
+        result = 'buy'
+    
+    results[result].append('rsi')
+    return result #Neither detected => should hold
 
 
 '''
 Bollinger Bands Indicator
 '''
 def bbands2(pair: str):
-    boundary = 0.02 #boundary is the safety number applied to lower and upper bounds
+    boundary = 0.02
+    result = 'hold'
 
-    #do everything to reduce the amount of requests per second
     d = get_method_values(pair=pair.split("/")[0], method='bbands2')
+    if not d:
+        return 'hold' #API error
+
     price = market.get_price(pair)
 
-    if d.get('valueUpperBand') * (1 - boundary) >= price:
-        return 'sell'
-    if d.get('valueLowerBand') * (1 + boundary) >= market.get_price(pair):
-        return 'buy'
+    if d.get('valueUpperBand') * (1 - boundary) >= price: #Overbought => should sell
+        result = 'sell'
+    
+    if d.get('valueLowerBand') * (1 + boundary) >= price: #Oversold => should buy
+        result = 'buy'
 
-    return 'hold'
+    results[result].append('bbands2')
+    return result
+
 
 '''
 Associate names with values
