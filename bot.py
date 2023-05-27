@@ -82,11 +82,3 @@ def update(pair: str, indicator: str):
 
     result = indicators.functions[indicator](pair)
     print(f'According to {indicator} we should place a {result} order on {pair}!')
-
-    if result == 'buy':
-        buy_mo(pair) 
-    
-    if result == 'sell':
-        positions = alpaca_api.get_all_positions()
-        for i in positions:
-            print(i.market_value)
