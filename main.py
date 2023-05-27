@@ -1,5 +1,5 @@
 import time
-import settings, bot, indicators
+import settings, bot, indicators as indicators
 
 if __name__ == "__main__":
     while True:

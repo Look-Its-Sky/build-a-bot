@@ -1,7 +1,7 @@
 from alpaca.trading.client import TradingClient
 from alpaca.trading.requests import *
 from alpaca.trading.enums import OrderSide, TimeInForce
-import indicators, json, settings
+import indicators as indicators, json, settings
 
 
 '''

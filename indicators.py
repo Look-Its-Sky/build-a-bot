@@ -24,8 +24,7 @@ def get(url: str):
 
 
 '''
-Pair Example:
-BTC/USDT
+Get value of indicator GET request
 '''
 def get_method_values(pair: str, method: str, exchange: str = 'binance'):
     interval = "5m"
@@ -59,7 +58,7 @@ def bbands2(pair: str):
     result = 'hold'
 
     d = get_method_values(pair=pair.split("/")[0], method='bbands2')
-    if not d:
+    if not d or not d.get('valueUpperBand') or not d.get('valueLowerBand'):
         return 'hold' #API error
 
     price = market.get_price(pair)
