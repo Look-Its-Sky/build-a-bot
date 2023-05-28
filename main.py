@@ -32,4 +32,4 @@ if __name__ == "__main__":
                 'sell': [],
                 'hold': []
             }
-            time.sleep(10)
+            time.sleep(5)

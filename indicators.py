@@ -35,15 +35,18 @@ def get_method_values(pair: str, method: str, exchange: str = 'binance'):
 RSI Indicator
 '''
 def rsi(pair: str):
+    overbought = 65 #lets go aggressive 😈
+    oversold = 45
+
     result = 'hold'
     d = get_method_values(pair=pair.split("/")[0], method='rsi')
     if not d:
         return 'hold' #API error
     rsi = d.get('value')
 
-    if rsi > 70: #Overbought => should sell
+    if rsi >= overbought: #Overbought => should sell
         result = 'sell'
-    if rsi < 30: #Oversold => should buy
+    if rsi < oversold: #Oversold => should buy
         result = 'buy'
     
     results[result].append('rsi')
