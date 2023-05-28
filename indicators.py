@@ -40,8 +40,8 @@ def rsi(pair: str):
 
     result = 'hold'
     d = get_method_values(pair=pair.split("/")[0], method='rsi')
-    if not d:
-        return 'hold' #API error
+    if not d.get('valueUpperBand') or not d.get('valueLowerBand'):
+        return 'hold (api error)' #API error
     rsi = d.get('value')
 
     if rsi >= overbought: #Overbought => should sell
@@ -62,7 +62,7 @@ def bbands2(pair: str):
 
     d = get_method_values(pair=pair.split("/")[0], method='bbands2')
     if not d or not d.get('valueUpperBand') or not d.get('valueLowerBand'):
-        return 'hold' #API error
+        return 'hold (api error)' #API error
 
     price = market.get_price(pair)
     print(price)
