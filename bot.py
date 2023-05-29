@@ -1,5 +1,6 @@
 import indicators as indicators, settings, alpaca
-import json, datetime
+import json
+from datetime import datetime
 
 '''
 Runs every <wait time> (should be at least 15 seconds by default) due to all of the free api limitations

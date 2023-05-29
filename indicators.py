@@ -36,7 +36,7 @@ Simple POST request
 '''
 def post(url: str, data: json, exchange: str = 'binance'):
     init_data = {
-        'secret': bot.keys.get('taapi')
+        'secret': settings.keys.get('taapi')
     }
 
     init_data.update(data)
@@ -48,7 +48,7 @@ Get value of indicator GET request
 '''
 def get_method_values(pair: str, method: str, exchange: str = 'binance'):
     time.sleep(taapi_timeout) #satisfy the api NOTE: implement a better timeout system
-    return get(f"https://api.taapi.io/{method}?secret={bot.keys.get('taapi')}&exchange={exchange}&symbol={pair}/USDT&interval={interval}") #TODO: fix conversion
+    return get(f"https://api.taapi.io/{method}?secret={settings.keys.get('taapi')}&exchange={exchange}&symbol={pair}/USDT&interval={interval}") #TODO: fix conversion
 
 '''
 Get value of indicator POST request
@@ -56,7 +56,7 @@ Get value of indicator POST request
 def post_method_values(pair: str, exchange: str = 'binance'):
     time.sleep(taapi_timeout)
     return post("https://api.taapi.io/bulk", data= {
-        'secret': bot.keys.get('taapi'),
+        'secret': settings.keys.get('taapi'),
         'construct': {
             'exchange': exchange,
             'symbol': pair,
