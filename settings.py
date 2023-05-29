@@ -1,3 +1,15 @@
+import json
+
+'''
+Set all API keys
+'''
+with open('api.json', 'r') as f:
+    keys = json.load(f)
+    if not keys.get('taapi') or not keys.get('alpaca_api') or not keys.get('alpaca_secret'):
+        print('Could not find all api keys\nexiting....')
+        exit(-1)
+
+
 '''
 what indicators to use
 '''
