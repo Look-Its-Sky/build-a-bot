@@ -10,7 +10,7 @@ def update(pair: str, indicator: str):
 
     #result = indicators.functions[indicator](pair)
 
-    result = indicators.rsi()
+    result = indicators.rsi(pair)
     print(f'{datetime.now().strftime("[%D @ %H:%M:%S]")}: According to {indicator} we should {result} on {pair}!')
 
     if result == 'buy':
