@@ -10,13 +10,17 @@ Market Order Buy Side
 (Immediate Order)
 '''
 def buy_mo(pair: str):
-    alpaca_api.submit_order(MarketOrderRequest(
-        symbol = pair,
-        side = OrderSide.BUY,
-        time_in_force = TimeInForce.GTC,
-        notional = 50,
-        stop_loss = settings.strats[pair],
-    ))
+    try:
+        alpaca_api.submit_order(MarketOrderRequest(
+            symbol = pair,
+            side = OrderSide.BUY,
+            time_in_force = TimeInForce.GTC,
+            notional = 50,
+            stop_loss = settings.strats[pair],
+        ))
+    except Exception as e:
+        if 'insufficient balance' in e.args[0]:
+            print(f'Insufficient Balance to buy {pair}')
 
 
 '''
@@ -38,12 +42,15 @@ Market Order Sell Side
 (Immediate Order)
 '''
 def sell_mo(pair: str):
-    alpaca_api.submit_order(MarketOrderRequest(
-        symbol=pair,
-        side=OrderSide.SELL,
-        time_in_force=TimeInForce.GTC,
-        notional = 50
-    ))
+    try:
+        alpaca_api.submit_order(MarketOrderRequest(
+            symbol=pair,
+            side=OrderSide.SELL,
+            time_in_force=TimeInForce.GTC,
+            notional = 50
+        ))
+    except Exception as e:
+        print(e)
 
 
 '''

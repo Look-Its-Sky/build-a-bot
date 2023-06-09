@@ -8,6 +8,8 @@ results = {
     'hold': []
 }
 taapi_timeout = 15
+current_price = None
+last_price_request = None
 
 
 '''
@@ -51,6 +53,7 @@ def get_method_values(ticker: str, method: str, exchange: str = 'binance'):
     url = f"https://api.taapi.io/{method}?secret={settings.keys.get('taapi')}&exchange={exchange}&symbol={ticker}/USDT&interval={interval}"
     return get(url) #TODO: fix conversion
 
+
 '''
 Get value of indicator POST request
 '''
@@ -66,10 +69,11 @@ def post_method_values(pair: str, exchange: str = 'binance'):
         },
     }).text
                 
+
 '''
 RSI Indicator
 '''
-def rsi(pair: str):
+def rsi(pair: str) -> str:
     overbought = 65 #lets go aggressive 😈
     oversold = 45
 
@@ -92,7 +96,7 @@ def rsi(pair: str):
 '''
 Bollinger Bands Indicator
 '''
-def bbands2(pair: str):
+def bbands2(pair: str) -> str:
     boundary = 0.02
     result = 'hold'
 
@@ -100,17 +104,33 @@ def bbands2(pair: str):
     if d == None or not d.get('valueUpperBand') or not d.get('valueLowerBand'):
         return 'hold (api error)' #API error
 
-    price = market.get_price(pair)
+    current_price = get_price(pair)
 
-    if d.get('valueUpperBand') * (1 - boundary) >= price: #Overbought => should sell
+    if d.get('valueUpperBand') * (1 - boundary) >= current_price: #Overbought => should sell
         result = 'sell'
     
-    if d.get('valueLowerBand') * (1 + boundary) >= price: #Oversold => should buy
+    if d.get('valueLowerBand') * (1 + boundary) >= current_price: #Oversold => should buy
         result = 'buy'
 
     results[result].append('bbands2')
     return result
 
+
+'''
+Triple Exponential Moving Average Indicator 
+'''
+def tema() -> str:
+    boundary = 0.01 #the percentage over or under the boundary
+
+
+'''
+Get Price While Respecting Timeouts
+'''
+def get_price(pair: str) -> float:
+    if not last_price_request or last_price_request - time.time() <= -15:
+        return market.get_price(pair)
+    return current_price
+    
 
 '''
 Associate names with values
