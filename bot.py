@@ -1,4 +1,4 @@
-import indicators as indicators, settings, judealpaca
+import indicators as indicators, settings, market.alpaca
 import json
 from datetime import datetime
 
@@ -15,7 +15,7 @@ def update(pair: str, indicator: str):
     print(f'{datetime.now().strftime("[%D @ %H:%M:%S]")}: According to {indicator} we should {result} on {pair}!')
 
     if result == 'buy':
-        judealpaca.buy_mo(pair)
+        market.alpaca.buy_mo(pair)
 
     if result == 'sell':
-        judealpaca.sell_mo(pair)
+        market.alpaca.sell_mo(pair)
