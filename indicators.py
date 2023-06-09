@@ -26,7 +26,7 @@ def get(url: str):
         time.sleep(sleep_time)
 
     if response.status_code!= 200:
-        print(f'Status code != 200\nStatus ={response.status_code}')
+        print(f'Status code != 200\nStatus Code = {response.status_code}')
         return None
     return response.json()
 
@@ -46,9 +46,10 @@ def post(url: str, data: json, exchange: str = 'binance'):
 '''
 Get value of indicator GET request
 '''
-def get_method_values(pair: str, method: str, exchange: str = 'binance'):
+def get_method_values(ticker: str, method: str, exchange: str = 'binance'):
     time.sleep(taapi_timeout) #satisfy the api NOTE: implement a better timeout system
-    return get(f"https://api.taapi.io/{method}?secret={settings.keys.get('taapi')}&exchange={exchange}&symbol={pair}/USDT&interval={interval}") #TODO: fix conversion
+    url = f"https://api.taapi.io/{method}?secret={settings.keys.get('taapi')}&exchange={exchange}&symbol={ticker}/USDT&interval={interval}"
+    return get(url) #TODO: fix conversion
 
 '''
 Get value of indicator POST request
@@ -73,9 +74,10 @@ def rsi(pair: str):
     oversold = 45
 
     result = 'hold'
-    d = get_method_values(pair=pair.split("/")[0], method='rsi')
-    if not d.get('valueUpperBand') or not d.get('valueLowerBand'):
+    d = get_method_values(ticker=pair.split("/")[0], method='rsi')
+    if not d.get('value'):
         return 'hold (api error)' #API error
+    
     rsi = d.get('value')
 
     if rsi >= overbought: #Overbought => should sell
