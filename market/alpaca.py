@@ -42,8 +42,7 @@ def sell_mo(pair: str):
         symbol=pair,
         side=OrderSide.SELL,
         time_in_force=TimeInForce.GTC,
-        notional = 50,
-        stop_loss = settings.strats[pair]['stop_loss']
+        notional = 50
     ))
 
 
