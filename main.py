@@ -2,6 +2,7 @@ import time
 import settings, bot, indicators as indicators
 
 if __name__ == "__main__":
+    print("Started Trading Bot!")
     while True:
         for p in settings.strats.keys():
             for i in settings.indicators:
