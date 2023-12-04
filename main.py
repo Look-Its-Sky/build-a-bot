@@ -1,5 +1,5 @@
 import time
-import settings, bot, indicators as indicators
+import settings, bot, indicators
 
 if __name__ == "__main__":
     print("Started Trading Bot!")
