@@ -5,16 +5,11 @@ from datetime import datetime
 '''
 Runs every <wait time> (should be at least 15 seconds by default) due to all of the free api limitations
 '''
-def update(pair: str, indicator: str):
-    if not indicators.functions.get(indicator):
-        print(f'Cannot find function for {indicator}')
-
-    result = indicators.functions[indicator](pair)
-
-    print(f'{datetime.now().strftime("[%D @ %H:%M:%S]")}: According to {indicator} we should {result} on {pair}!')
+def update(pair: str, strategy: object, current_market: object):
+    result = strategy.update(pair, current_market)
 
     if result == 'buy':
-        market.alpaca.buy_mo(pair)
+        current_market.buy_mo(pair)
 
     if result == 'sell':
-        market.alpaca.sell_mo(pair)
+        current_market.sell_mo(pair)
