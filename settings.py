@@ -12,3 +12,4 @@ if not keys.get('alpaca_api') or not keys.get('alpaca_secret'):
 
 if not keys.get('strategy'):
     print('Could not find strategy\nexiting....')
+    exit(-1)
